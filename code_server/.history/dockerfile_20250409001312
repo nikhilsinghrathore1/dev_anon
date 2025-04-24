@@ -1,0 +1,19 @@
+FROM codercom/code-server:4.96.4
+
+# Install Node.js 22
+USER root
+RUN apt-get update \
+    && apt-get install -y curl gnupg \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Back to non-root user (recommended for code-server)
+USER coder
+
+# Expose code-server, your app (e.g., on 3001), and Vite dev server
+EXPOSE 8080 3000 5173
+
+# Set default command to launch code-server at /anon/build
+CMD ["code-server", "--auth", "none", "--bind-addr", "0.0.0.0:8080", "/anon/build"]
