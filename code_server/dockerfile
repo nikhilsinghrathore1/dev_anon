@@ -17,9 +17,8 @@ USER coder
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
 
 # Install Tailwind IntelliSense and GitHub Copilot extensions
-RUN code-server --install-extension bradlc.vscode-tailwindcss \
-    && code-server --install-extension GitHub.copilot
 
-EXPOSE 8080 5173
+
+EXPOSE 8080 3001 5173
 
 CMD ["code-server", "--auth", "none", "--bind-addr", "0.0.0.0:8080", "/anon/build"]
